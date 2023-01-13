@@ -1,0 +1,131 @@
+<template>
+    <div class="slds-modal__content modal_body_style scroll-box "
+        style="background:bisque;">
+        <div class="slds-m-around_large ">
+            <div class="slds-grid slds-wrap">
+                <!-- Destination Name -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-input name="DestinationName"
+                        class="addressBookDetail"
+                        value={addressBookDetails.Destination_Name__c}
+                        label="Destination Name"
+                        onchange={handleDestinationName} maxlength="60">
+                    </lightning-input>
+                </div>
+                <!-- Email -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-input type="email" name="addressBookDetail"
+                        value={addressBookDetails.Email__c}
+                        label="Email" onchange={handleEmail}></lightning-input>
+                </div>
+            </div>
+
+
+            <div class="slds-grid slds-wrap">
+                <!-- Ship To Name -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-input name="ShipToName"
+                        class="addressBookShipToName"
+                        value={addressBookDetails.Ship_To_Name__c} label="Ship
+                        To Name" onchange={handleShipToName}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-right_xx-small">
+                    <div onkeydown={removeSpecialCharactersForPhone_Fax}
+                        onkeypress={removeSpecialCharactersForPhone_Fax}>
+                        <lightning-input formatter="number"
+                            value={addressBookDetails.Phone__c}
+                            onchange={handlePhone}
+                            label="Phone" name="addressBookPhone"
+                            class="addressBookPhone" maxlength="13"
+                            minlength="10"></lightning-input>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="slds-grid slds-wrap">
+                <!-- Ship To company -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-input name="ShipToCompany"
+                        class="addressBookShipToCompany"
+                        value={addressBookDetails.Ship_to_company__c}
+                        label="Ship To Company"
+                        onchange={handleShipToCompany}>></lightning-input>
+                </div>
+                <!-- State -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-combobox label="State"
+                        value={addressBookDetails.state__c}
+                        options={stateListToDisplay}
+                        onchange={handleChangeState} placeholder="Select"
+                        class="addressBookState">
+                    </lightning-combobox>
+                </div>
+            </div>
+
+
+            <div class="slds-grid slds-wrap">
+                <!-- Address -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <lightning-input name="addressBookAddress"
+                        class="addressBookAddress"
+                        value={addressBookDetails.Address__c}
+                        onchange={handleChangeAddress} label="Address">
+                    </lightning-input>
+                </div>
+                <!-- Fax -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <div onkeydown={removeSpecialCharactersForPhone_Fax}
+                        onkeypress={removeSpecialCharactersForPhone_Fax}>
+                        <lightning-input name="addressBookFax"
+                            class="addressBookFax" type="number"
+                            formatter="number"
+                            value={addressBookDetails.fax__c}
+                            onchange={handleChangeFax} label="Fax"
+                            maxlength="11"
+                            minlength="11">
+                        </lightning-input>
+                    </div>
+                </div>
+            </div>
+
+            <!-- City -->
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12 slds-p-right_small">
+                    <div onkeydown={validateCitySpecialCharactersOnkeydown}
+                        onkeypress={validateSpecialCharactersOnkeypress}>
+                        <lightning-input name="addressBookCity" class="addressBookCity"
+                        value={addressBookDetails.City__c} onchange={handleChangeCity} label="City">
+                        </lightning-input>
+                    </div>
+                </div>
+                <!-- Zip -->
+                <div class="slds-col slds-size_6-of-12 slds-p-right_xx-small">
+                    <div onkeydown={removeZipCodeSpecialCharacters}
+                        onkeypress={removeZipCodeSpecialCharacters}>
+                        <lightning-input  name="addressBookZip" class="addressBookZip"
+                            formatter="number" value={addressBookDetails.Zip__c} onchange={handleChangeZip}
+                            label="Zip" maxlength="10" minlength="5">
+                        </lightning-input>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Active -->
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-p-right_xx-small">
+
+                    <lightning-input type="checkbox" label="Active" checked={addressBookDetails.Active__c}
+                        onchange={handleChangeActive} name="addressBookActive">
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+        <lightning-button variant="brand" class="slds-m-around_xx-small"
+            type="submit" title="save" label="Save"
+            onclick={SaveAddressBook} disabled={ShowErrorMessage}>
+        </lightning-button>
+    </div>
+</template>
